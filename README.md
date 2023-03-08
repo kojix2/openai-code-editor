@@ -3,23 +3,24 @@
 Command-line tools to perform code/text editing using the [OpenAI API](https://platform.openai.com/docs/api-reference/edits).
 
 To use this tool, an OpenAI Access Token is required.
+
 Please Set `ENV["OPENAI_API_KEY"]`
 
 ## Install
 
-```
+```sh
 make
 sudo make install
 ```
 
 ## Usage
 
-```
+```sh
 code-editor -i "Add documenations" foo.rb
 cat foo.rb | code-editor -i "Add documentations"
 ```
 
-```
+```sh
 code-editor -i "Add documenations" foo.rb > bar.rb
 meld foo.rb bar.rb
 ```
