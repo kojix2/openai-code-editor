@@ -34,7 +34,7 @@ data = PostData.new
 # Parse command line options
 OptionParser.parse do |parser|
   parser.banner = "Usage: #{PROGRAM_NAME} [options]"
-  parser.on "-m STR", "--model STR", "model to use" do |v|
+  parser.on "-m STR", "--model STR", "ID of the model to use" do |v|
     case v
     when "text", "text-davinci-edit-001"
       data.model = "text-davinci-edit-001"
