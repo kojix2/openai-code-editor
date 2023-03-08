@@ -15,6 +15,18 @@ sudo make install
 ## Usage
 
 ```
+code-editor -i "Add documenations" foo.rb
+cat foo.rb | code-editor -i "Add documentations"
+```
+
+```
+code-editor -i "Add documenations" foo.rb > bar.rb
+meld foo.rb bar.rb
+```
+
+## Options
+
+```
 Usage: code-editor [options]
     -m STR, --model STR              ID of the model to use
     -i STR, --instruction STR        The instruction that tells the model how to edit the prompt.
@@ -26,10 +38,7 @@ Usage: code-editor [options]
     -h, --help                       Show help
 ```
 
-```
-code-editor -i "Add documenations" foo.rb
-cat foo.rb | code-editor -i "Add documentations"
-```
+
 
 ## Contributing
 
