@@ -43,10 +43,12 @@ OptionParser.parse do |parser|
     when "code", "code-davinci-edit-001"
       data.model = "code-davinci-edit-001"
     else
-      STDERR.puts "Error: Invalid model"
+      STDERR.puts "Error: Invalid model ID #{v}"
       exit 1
     end
   end
+  parser.on("-T", "--text", "Use text model") { data.model = "text-davinci-edit-001" }
+  parser.on("-C", "--code", "Use code model") { data.model = "code-davinci-edit-001" }
   parser.on "-i STR", "--instruction STR", "The instruction that tells the model how to edit the prompt." do |v|
     data.instruction = v.to_s
   end
