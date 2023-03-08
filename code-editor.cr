@@ -8,8 +8,9 @@ require "spinner"
 require "colorize"
 
 PROGRAM_VERSION = "0.1.0"
-overwrite_flag = false
+overwrite_flag = true
 debug_flag = false
+output_file = "-"
 
 struct PostData
   include JSON::Serializable
@@ -58,8 +59,9 @@ OptionParser.parse do |parser|
   parser.on "-p Float", "--top_p Float", "Nucleus sampling considers top_p probability mass for token selection." do |v|
     data.top_p = v.to_f? || (STDERR.puts "Error: Invalid top_p"; exit 1)
   end
-  parser.on "-O", "--overwrite", "Overwrite the input file with the edited text." do
-    overwrite_flag = true
+  parser.on "-o [FILE]", "--output [FILE]", "Output file name" do |v|
+    overwrite_flag = false
+    output_file = v.to_s
   end
   parser.on "-d", "--debug", "Print request data" do
     debug_flag = true
@@ -71,7 +73,18 @@ OptionParser.parse do |parser|
   parser.on("-h", "--help", "Show help") { puts parser; exit }
 end
 
-file_name = ARGV[0]
+if overwrite_flag
+  if ARGV.empty?
+    STDERR.puts "Error: No input file specified"
+    exit 1
+  else
+    output_file = ARGV[0]
+    unless File.exists? output_file
+      STDERR.puts "Error: File not found"; exit 1
+    end
+  end
+end
+
 data.input = ARGF.gets_to_end
 STDERR.puts data.pretty_inspect if debug_flag
 
@@ -92,8 +105,13 @@ sp.stop
 if response.status.success?
   response_data = JSON.parse(response.body)
   if overwrite_flag
-    File.write(file_name, response_data["choices"][0]["text"])
+    File.write(output_file, response_data["choices"][0]["text"])
   else
+    if output_file = "-"
+      puts response_data["choices"][0]["text"]
+    else
+      File.write(output_file, response_data["choices"][0]["text"])
+    end
     puts response_data["choices"][0]["text"]
   end
 else
