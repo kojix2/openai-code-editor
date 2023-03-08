@@ -2,6 +2,8 @@
 
 Command-line tools to perform code/text editing using the [OpenAI API](https://platform.openai.com/docs/api-reference/edits).
 
+<div align="center"><img src="https://user-images.githubusercontent.com/5798442/223654401-4423f7cb-4149-4186-b313-840e2af00432.png"></div>
+
 To use this tool, an OpenAI Access Token is required.
 
 Please Set `ENV["OPENAI_API_KEY"]`
