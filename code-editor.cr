@@ -114,4 +114,5 @@ if response.status.success?
   end
 else
   STDERR.puts "Error: #{response.status_code} #{response.status}".colorize(:yellow).mode(:bold)
+  STDERR.puts response.body.colorize(:yellow)
 end
