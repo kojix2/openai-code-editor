@@ -26,7 +26,7 @@ struct PostData
     @input = ""
     @instruction = ""
     @n = 1
-    @temperature = 0.5
+    @temperature = 1.0
     @top_p = 1.0
   end
 end
