@@ -1,4 +1,4 @@
-# OpenAI scripts
+# OpenAI code-editor
 
 Command-line tools to perform code/text editing using the [OpenAI API](https://platform.openai.com/docs/api-reference/edits).
 

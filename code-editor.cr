@@ -8,6 +8,7 @@ require "spinner"
 require "colorize"
 
 PROGRAM_VERSION = "0.1.0"
+overwrite_flag = false
 debug_flag = false
 
 struct PostData
@@ -57,6 +58,9 @@ OptionParser.parse do |parser|
   parser.on "-p Float", "--top_p Float", "Nucleus sampling considers top_p probability mass for token selection." do |v|
     data.top_p = v.to_f? || (STDERR.puts "Error: Invalid top_p"; exit 1)
   end
+  parser.on "-O", "--overwrite", "Overwrite the input file with the edited text." do
+    overwrite_flag = true
+  end
   parser.on "-d", "--debug", "Print request data" do
     debug_flag = true
   end
@@ -67,6 +71,7 @@ OptionParser.parse do |parser|
   parser.on("-h", "--help", "Show help") { puts parser; exit }
 end
 
+file_name = ARGV[0]
 data.input = ARGF.gets_to_end
 STDERR.puts data.pretty_inspect if debug_flag
 
@@ -86,7 +91,11 @@ sp.stop
 
 if response.status.success?
   response_data = JSON.parse(response.body)
-  puts response_data["choices"][0]["text"]
+  if overwrite_flag
+    File.write(file_name, response_data["choices"][0]["text"])
+  else
+    puts response_data["choices"][0]["text"]
+  end
 else
   STDERR.puts "Error: #{response.status_code} #{response.status}".colorize(:yellow).mode(:bold)
 end
