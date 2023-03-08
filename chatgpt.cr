@@ -64,7 +64,7 @@ def get_input(prompt)
 end
 
 def send_chat_request(url, data, headers, debug_flag)
-  STDERR.puts data.to_json.pretty_inspect if debug_flag
+  STDERR.puts data.pretty_inspect.colorize(:dark_gray) if debug_flag
   spinner_text = "ChatGPT".colorize(:green)
   sp = Spin.new(0.2, Spinner::Charset[:pulsate2], spinner_text, output: STDERR)
   sp.start
