@@ -17,12 +17,6 @@ sudo make install
 
 ```sh
 code-editor -i "Add documenations" foo.rb
-cat foo.rb | code-editor -i "Add documentations"
-```
-
-```sh
-code-editor -i "Add documenations" foo.rb > bar.rb
-meld foo.rb bar.rb
 ```
 
 ## Options
