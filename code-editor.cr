@@ -104,15 +104,11 @@ sp.stop
 
 if response.status.success?
   response_data = JSON.parse(response.body)
-  if overwrite_flag
-    File.write(output_file, response_data["choices"][0]["text"])
+  result = response_data["choices"][0]["text"]
+  if !overwrite_flag && output_file == "-"
+    puts result
   else
-    if output_file = "-"
-      puts response_data["choices"][0]["text"]
-    else
-      File.write(output_file, response_data["choices"][0]["text"])
-    end
-    puts response_data["choices"][0]["text"]
+    File.write(output_file, result)
   end
 else
   STDERR.puts "Error: #{response.status_code} #{response.status}".colorize(:yellow).mode(:bold)
