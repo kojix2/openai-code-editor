@@ -1,4 +1,5 @@
 # openai-edit
+# https://platform.openai.com/docs/api-reference/edits
 
 require "option_parser"
 require "http/client"
@@ -6,7 +7,7 @@ require "json"
 require "spinner"
 require "colorize"
 
-VERSION = "0.1.0"
+PROGRAM_VERSION = "0.1.0"
 debug_flag = false
 
 struct PostData
@@ -32,7 +33,7 @@ data = PostData.new
 
 # Parse command line options
 OptionParser.parse do |parser|
-  parser.banner = "Usage: openai-edit [options]"
+  parser.banner = "Usage: #{PROGRAM_NAME} [options]"
   parser.on "-m STR", "--model STR", "model to use" do |v|
     case v
     when "text", "text-davinci-edit-001"
@@ -44,23 +45,23 @@ OptionParser.parse do |parser|
       exit 1
     end
   end
-  parser.on "-i STR", "--instruction STR", "tells the model how to edit" do |v|
+  parser.on "-i STR", "--instruction STR", "The instruction that tells the model how to edit the prompt." do |v|
     data.instruction = v.to_s
   end
-  parser.on "-n INT", "number of edits" do |v|
+  parser.on "-n INT", "How many edits to generate for the input and instruction." do |v|
     data.n = v.to_i? || (STDERR.puts "Error: Invalid number of edits"; exit 1)
   end
-  parser.on "-t INT", "--temperature INT" do |v|
+  parser.on "-t Float", "--temperature Float", "Sampling temperature between 0 and 2 affects randomness of output." do |v|
     data.temperature = v.to_f? || (STDERR.puts "Error: Invalid temperature"; exit 1)
   end
-  parser.on "-p INT", "--top_p INT" do |v|
+  parser.on "-p Float", "--top_p Float", "Nucleus sampling considers top_p probability mass for token selection." do |v|
     data.top_p = v.to_f? || (STDERR.puts "Error: Invalid top_p"; exit 1)
   end
   parser.on "-d", "--debug", "Print request data" do
     debug_flag = true
   end
   parser.on "-v", "--version", "Show version" do
-    puts VERSION
+    puts PROGRAM_VERSION
     exit
   end
   parser.on("-h", "--help", "Show help") { puts parser; exit }
@@ -69,7 +70,8 @@ end
 data.input = ARGF.gets_to_end
 STDERR.puts data.pretty_inspect if debug_flag
 
-sp = Spin.new(0.2, Spinner::Charset[:pulsate2], data.instruction.colorize(:green), output: STDERR)
+spinner_text = (data.instruction.empty? ? "(None)" : data.instruction).colorize(:green)
+sp = Spin.new(0.2, Spinner::Charset[:pulsate2], spinner_text , output: STDERR)
 sp.start
 
 url = "https://api.openai.com/v1/edits"
