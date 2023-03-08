@@ -40,6 +40,18 @@ Usage: code-editor [options]
     -h, --help                       Show help
 ```
 
+## ChatGPT
+
+This repository contains scripts that allow ChatGPT to be run interactively.
+
+```
+crystal build chatgpt.cr
+```
+
+```
+chatgpt
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub.
