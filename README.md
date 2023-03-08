@@ -1,6 +1,6 @@
 # OpenAI code-editor
 
-Command-line tools to perform code/text editing using the [OpenAI API](https://platform.openai.com/docs/api-reference/edits).
+Command-line tools to perform code/text editing using the [OpenAI API](https://platform.openai.com/docs/api-reference/edits). (`text-davinci-edit-001`, `code-davinci-edit-001`)
 
 <div align="center"><img src="https://user-images.githubusercontent.com/5798442/223654401-4423f7cb-4149-4186-b313-840e2af00432.png"></div>
 
@@ -39,8 +39,6 @@ Usage: code-editor [options]
     -v, --version                    Show version
     -h, --help                       Show help
 ```
-
-
 
 ## Contributing
 
