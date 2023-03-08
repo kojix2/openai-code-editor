@@ -75,7 +75,7 @@ sp = Spin.new(0.2, Spinner::Charset[:pulsate2], spinner_text , output: STDERR)
 sp.start
 
 url = "https://api.openai.com/v1/edits"
-api_key = ENV["OPENAI_ACCESS_TOKEN"]
+api_key = ENV["OPENAI_API_KEY"]
 headers = HTTP::Headers{
   "Authorization" => "Bearer #{api_key}",
   "Content-Type"  => "application/json",
