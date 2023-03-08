@@ -1,5 +1,4 @@
-# openai-edit
-# https://platform.openai.com/docs/api-reference/edits
+# https://platform.openai.com/docs/api-reference/chat
 
 require "option_parser"
 require "http/client"
