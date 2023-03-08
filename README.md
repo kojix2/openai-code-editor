@@ -30,10 +30,13 @@ meld foo.rb bar.rb
 ```
 Usage: code-editor [options]
     -m STR, --model STR              ID of the model to use
+    -T, --text                       Use text model
+    -C, --code                       Use code model
     -i STR, --instruction STR        The instruction that tells the model how to edit the prompt.
     -n INT                           How many edits to generate for the input and instruction.
     -t Float, --temperature Float    Sampling temperature between 0 and 2 affects randomness of output.
     -p Float, --top_p Float          Nucleus sampling considers top_p probability mass for token selection.
+    -o [FILE], --output [FILE]       Output file name
     -d, --debug                      Print request data
     -v, --version                    Show version
     -h, --help                       Show help
