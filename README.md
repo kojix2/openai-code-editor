@@ -21,6 +21,8 @@ sudo make install
 code-editor -i "Add documenations" foo.rb
 ```
 
+This tool overwrites files. It is recommended to use it in a Git-controlled directory.
+
 ## Options
 
 ```
