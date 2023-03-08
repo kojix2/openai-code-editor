@@ -89,7 +89,7 @@ data.input = ARGF.gets_to_end
 STDERR.puts data.pretty_inspect if debug_flag
 
 spinner_text = (data.instruction.empty? ? "(None)" : data.instruction).colorize(:green)
-sp = Spin.new(0.2, Spinner::Charset[:pulsate2], spinner_text , output: STDERR)
+sp = Spin.new(0.2, Spinner::Charset[:pulsate2], spinner_text, output: STDERR)
 sp.start
 
 url = "https://api.openai.com/v1/edits"
