@@ -52,6 +52,12 @@ crystal build chatgpt.cr
 chatgpt
 ```
 
+This tool allows you to load files using placeholders.
+
+```
+> Please read the code #{chatgpt.cr}
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub.

@@ -72,9 +72,54 @@ def send_chat_request(url, data, headers, debug_flag)
   response
 end
 
+FILE_EXTENSIONS = {
+  ".c"        => "c",
+  ".cr"       => "crystal",
+  ".cpp"      => "cpp",
+  ".cs"       => "csharp",
+  ".css"      => "css",
+  ".go"       => "go",
+  ".html"     => "html",
+  ".htm"      => "html",
+  ".java"     => "java",
+  ".js"       => "javascript",
+  ".json"     => "json",
+  ".kt"       => "kotlin",
+  ".lua"      => "lua",
+  ".md"       => "md",
+  ".markdown" => "markdown",
+  ".m"        => "matlab",
+  ".nim"      => "nim",
+  ".pl"       => "perl",
+  ".php"      => "php",
+  ".py"       => "python",
+  ".R"        => "r",
+  ".rb"       => "ruby",
+  ".rs"       => "rust",
+  ".scala"    => "scala",
+  ".sh"       => "shell",
+  ".sql"      => "sql",
+  ".swift"    => "swift",
+  ".ts"       => "typescript",
+  ".xml"      => "xml",
+  ".yaml"     => "yaml",
+  ".yml"      => "yaml",
+}
+
 loop do
   msg = get_input("> ")
   break if msg.empty?
+  msg = msg.gsub(/\#{.+?}/) do |match|
+    path = match[2..-2]
+    extname = File.extname(path)
+    basename = File.basename(path)
+    if File.exists?(path)
+      "\n\n```#{FILE_EXTENSIONS[extname]}:#{basename}\n" + File.read(match[2..-2]) + "\n```"
+    else
+      STDERR.puts "Error: File not found: #{path}".colorize(:yellow).mode(:bold)
+      next match
+    end
+  end
   data.messages << {"role" => "user", "content" => msg}
 
   response = send_chat_request(url, data, headers, debug_flag)
